@@ -36,3 +36,11 @@ sudo systemctl status docker.service
 #Ensure both are set to start when the system starts up.
 sudo systemctl enable kubelet.service
 sudo systemctl enable docker.service
+
+#Add user name to docker group
+sudo usermod -aG docker ${USER}
+#Apply new group membership
+su - ${USER}
+#Conform that user added to docker usergroup
+id -nG
+

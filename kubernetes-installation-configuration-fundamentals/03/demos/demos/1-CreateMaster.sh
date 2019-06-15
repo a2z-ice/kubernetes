@@ -1,12 +1,19 @@
+# Edit /etc/hosts file and add following entry.
+vim /etc/hosts
+192.168.0.140 ubuntu-140
+192.168.0.141 ubuntu-141
+
 #Only on the master, download the yaml files for the pod network
 wget https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
 wget https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
 
-#Look inside calico.yaml and find the network range, adjust if needed.
+#Look inside calico.yaml and find the network range, adjust if needed. Example replace 192.168.0.0/16 with 10.10.0.0/16 
 vi calico.yaml
 
 #Create our kubernetes cluster, specifying a pod network range matching that in calico.yaml!
-sudo kubeadm init --pod-network-cidr=192.168.0.0/16
+#sudo kubeadm init --pod-network-cidr=192.168.0.0/16
+#To get rid of ip conflict use dirrerent ip address like following
+sudo kubeadm init --pod-network-cidr=10.10.0.0/16
 
 #Configure our account on the master to have admin access to the API server from a non-privileged account.
 mkdir -p $HOME/.kube

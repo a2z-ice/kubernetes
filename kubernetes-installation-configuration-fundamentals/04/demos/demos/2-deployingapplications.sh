@@ -120,6 +120,7 @@ curl http://$SERVICEIP:PORT
 route add -host 10.110.119.58 gw 192.168.0.140
 10.110.119.58=SERVICEIP
 192.168.0.140=MASTER NODE
+# if flush needed $route -n flush and to delete route from mac $route -n delete 192.168.0.140
 
 # For the route configuration do not need to install kubectl in the host machine
 https://kubernetes.io/docs/tasks/tools/install-kubectl/

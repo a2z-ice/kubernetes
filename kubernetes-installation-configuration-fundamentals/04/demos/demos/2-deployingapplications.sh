@@ -116,6 +116,16 @@ kubectl get deployment hello-world
 kubectl get service hello-world
 curl http://$SERVICEIP:PORT
 
+# To access from other linux vm add router definition like following
+route add -host 10.110.119.58 gw 192.168.0.140
+10.110.119.58=SERVICEIP
+192.168.0.140=MASTER NODE
+
+# For the route configuration do not need to install kubectl in the host machine
+https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
+
+
 #We can edit the resources "on the fly" with kubectl edit. But this isn't reflected in our yaml. But is
 #persisted in the etcd database...cluster store. Change 2 to 3.
 kubectl edit deployment hello-world

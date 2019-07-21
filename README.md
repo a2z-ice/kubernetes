@@ -1,10 +1,10 @@
 ## To see traffic
-$ netstat -r
+<code>$ netstat -r </code>
 
 ## Add gateway in linux environment not permanent. The configuration will be evected once vm/bearmatel restarts
 $ route add -host IP_OF_HOST_TO_ROUTED gw GATEWAY_THROUGH_WHICH_TRAFIC_ROUTED
 # Example 10.110.119.58 is deployment of kubernetes cluster and 192.168.0.140 IP of master node.
-<code>$ route add -host 10.110.119.58 gw 192.168.0.140</code>
+<code>$ route add -host 10.110.119.58 gw 192.168.0.140
 
 
 
@@ -12,7 +12,7 @@ root@ub-java:~# cd /etc/netplan/
 50-cloud-init.yaml  50-cloud-init.yaml.backup  50-cloud-init.yaml.backup.router
 
 root@ub-java:/etc/netplan# cat 50-cloud-init.yaml.backup.router
-
+</code>
 ## Add menual gateway for Permanant by editing network interface
 <pre><code>
 # This file is generated from information provided by

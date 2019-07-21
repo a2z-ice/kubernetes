@@ -32,4 +32,4 @@ network:
             dhcp4: no
     version: 2
 
-![drawing](https://drive.google.com/uc?id=1eL2Zt9UKgWmtsCxIPuPxagFzu8YlVBwY){:.some-css-class width="200"}
+![drawing](https://drive.google.com/uc?id=1eL2Zt9UKgWmtsCxIPuPxagFzu8YlVBwY)

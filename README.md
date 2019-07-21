@@ -4,7 +4,7 @@ $ netstat -r
 ## Add gateway in linux environment not permanent. The configuration will be evected once vm/bearmatel restarts
 $ route add -host IP_OF_HOST_TO_ROUTED gw GATEWAY_THROUGH_WHICH_TRAFIC_ROUTED
 # Example 10.110.119.58 is deployment of kubernetes cluster and 192.168.0.140 IP of master node.
-$ route add -host 10.110.119.58 gw 192.168.0.140
+<code>$ route add -host 10.110.119.58 gw 192.168.0.140</code>
 
 
 

@@ -33,4 +33,6 @@ network:
             dhcp4: no
     version: 2
 </code></pre>
+
+![home_rowter_list](https://drive.google.com/uc?id=14aDWTo8qAJc1agxLditE_fZ_pbiujkUl)
 ![home_rowter](https://drive.google.com/uc?id=1eL2Zt9UKgWmtsCxIPuPxagFzu8YlVBwY)

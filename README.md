@@ -33,6 +33,7 @@ network:
             dhcp4: no
     version: 2
 </code></pre>
-
-![home_rowter_list](https://drive.google.com/uc?id=14aDWTo8qAJc1agxLditE_fZ_pbiujkUl)
+## Fro router configuration it is not needed to configure the router in interface just configure the router like following example
 ![home_rowter](https://drive.google.com/uc?id=1eL2Zt9UKgWmtsCxIPuPxagFzu8YlVBwY)
+![home_rowter_list](https://drive.google.com/uc?id=14aDWTo8qAJc1agxLditE_fZ_pbiujkUl)
+

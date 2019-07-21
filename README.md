@@ -33,3 +33,4 @@ network:
     version: 2
 
 ![home_rowter](https://drive.google.com/uc?id=1eL2Zt9UKgWmtsCxIPuPxagFzu8YlVBwY)
+<img src="https://drive.google.com/uc?id=1eL2Zt9UKgWmtsCxIPuPxagFzu8YlVBwY" alt="alt text" style="width:200px;"/>

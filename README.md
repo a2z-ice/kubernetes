@@ -14,6 +14,7 @@ root@ub-java:~# cd /etc/netplan/
 root@ub-java:/etc/netplan# cat 50-cloud-init.yaml.backup.router
 
 ## Add menual gateway for Permanant by editing network interface
+<pre><code>
 # This file is generated from information provided by
 # the datasource.  Changes to it will not persist across an instance.
 # To disable cloud-init's network configuration capabilities, write a file
@@ -31,5 +32,5 @@ network:
                    via: 192.168.0.140 <== IP of master node
             dhcp4: no
     version: 2
-
+</code></pre>
 ![home_rowter](https://drive.google.com/uc?id=1eL2Zt9UKgWmtsCxIPuPxagFzu8YlVBwY)

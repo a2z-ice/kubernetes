@@ -32,4 +32,8 @@ network:
             dhcp4: no
     version: 2
 
-![drawing](https://drive.google.com/uc?id=1eL2Zt9UKgWmtsCxIPuPxagFzu8YlVBwY)
+![home_rowter](https://drive.google.com/uc?id=1eL2Zt9UKgWmtsCxIPuPxagFzu8YlVBwY)
+img[alt="home_rowter"] { 
+  max-width:  20px; 
+  display: block;
+}

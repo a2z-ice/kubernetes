@@ -3,6 +3,9 @@
 #kubectl run, will convert a pod creation into a "Deployment generation"
 #http://kubernetes.io/docs/user-guide/kubectl-conventions/#generators 
 kubectl run hello-world --image=gcr.io/google-samples/hello-app:1.0
+#The avbove command create service, deployment, replica set and one pod.
+#But this command is depricated and will remove in future
+
 
 #But let's deploy a single pod too...
 kubectl run hello-world-pod --image=gcr.io/google-samples/hello-app:1.0 --generator=run-pod/v1
@@ -58,6 +61,7 @@ kubectl expose deployment hello-world --port=80 --target-port=8080
 #Check out the IP: and Port:, that's where we'll access this service.
 kubectl get service hello-world
 
+#Service backed by deployment backed by a replica set backed by one or more pod(s)
 #We can also get that information from using get
 kubectl describe service hello-world
 

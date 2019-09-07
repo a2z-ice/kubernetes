@@ -123,9 +123,10 @@ route add -host 10.110.119.58 gw 192.168.0.140
 # if flush needed $route -n flush and to delete route from mac $route -n delete 192.168.0.140
 
 # For the route configuration do not need to install kubectl in the host machine
-# To install kubectl in another host follow the link below and you might need to copy .kube from master to the host for that 
-# first copy the .kube folder to a tmp folder from the master node and the run the following command to copy from maste to host
-# node.
+# To install kubectl in another host follow the link below and you might need to copy .kube from master to the host, for that 
+# first copy the .kube folder to a tmp folder from the master node and then run the following command to copy from maste to host
+# where you ant to run kubectl in my case my host is my mac book, so I ran this command from my mac book and copy .kube from 
+# my master vm.
 scp -r ubuntu-140@ubuntu-140:/tmp/.kube .
 # To install kubectl in another host follow the instruction below.
 https://kubernetes.io/docs/tasks/tools/install-kubectl/

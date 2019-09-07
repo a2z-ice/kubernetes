@@ -118,7 +118,7 @@ kubectl get deployment hello-world
 
 #Repeat the curl access to see the load balancing of the HTTP request
 kubectl get service hello-world
-curl http://$SERVICEIP:PORT
+curl http://$CLUSTERIP:PORT
 
 # To access from other linux vm add router definition like following
 route add -host 10.110.119.58 gw 192.168.0.140

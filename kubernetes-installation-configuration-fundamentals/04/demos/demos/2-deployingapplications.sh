@@ -131,9 +131,9 @@ route add -host 10.110.119.58 gw 192.168.0.140
 # first copy the .kube folder to a tmp folder from the master node and then run the following command to copy from maste to host
 # where you ant to run kubectl in my case my host is my mac book, so I ran this command from my mac book and copy .kube from 
 # my master vm.
-scp -r ubuntu-140@ubuntu-140:/tmp/.kube .
+## scp -r ubuntu-140@ubuntu-140:/tmp/.kube .
 # To install kubectl in another host follow the instruction below.
-https://kubernetes.io/docs/tasks/tools/install-kubectl/
+## https://kubernetes.io/docs/tasks/tools/install-kubectl/
 
 
 

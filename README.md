@@ -1,3 +1,9 @@
+# Deployment rollout
+<pre><code>
+kubectl rollout history deploy fastpass-service -n industry-4-0 ⇐ fastpass-service name of deployment
+kubectl rollout undo deploy fastpass-service -n industry-4-0 --to-revision=1
+</code></pre>
+
 ## To see traffic
 <code>$ netstat -r </code>
 

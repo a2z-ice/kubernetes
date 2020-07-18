@@ -2,7 +2,11 @@
 #This is pulling a specified image from Google's container registry.
 #kubectl run, will convert a pod creation into a "Deployment generation"
 #http://kubernetes.io/docs/user-guide/kubectl-conventions/#generators 
-kubectl run hello-world --image=gcr.io/google-samples/hello-app:1.0
+
+#Depricated
+#kubectl run hello-world --image=gcr.io/google-samples/hello-app:1.0
+
+kubectl create deploy hello-world --image=gcr.io/google-samples/hello-app:1.0
 #The avbove command create service, deployment, replica set and one pod.
 #But this command is depricated and will remove in future
 

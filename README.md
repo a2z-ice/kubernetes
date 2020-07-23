@@ -2,6 +2,15 @@
 <pre><code>
 kubectl rollout history deploy fastpass-service -n industry-4-0 ⇐ fastpass-service name of deployment
 kubectl rollout undo deploy fastpass-service -n industry-4-0 --to-revision=1
+
+#For basic authentication
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+    httpHeaders:
+      - name: Authorization
+        value: Basic aGE6aGE=
 </code></pre>
 
 ## To see traffic

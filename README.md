@@ -1,3 +1,28 @@
+# ETCD backup and Restore
+
+```
+------------------Backup etcd------------------------
+ETCDCTL_API=3 etcdctl snapshot save -h
+ETCDCTL_API=3 etcdctl snapshot save --cert=/etc/kubernetes/pki/etcd/server.crt --cacert=/etc/kubernetes/pki/etcd/ca.crt  --key=/etc/kubernetes/pki/etcd/server.key --endpoints=https://127.0.0.1:2379 /opt/snapshot-pre-boot.db
+
+
+
+
+------------------Restore etcd------------------------
+ETCDCTL_API=3 etcdctl snapshort restore -h
+
+please be careful only one space before "/opt/snapshot-pre-boot.db"
+
+ETCDCTL_API=3 etcdctl snapshot restore --cacert=--cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=https://127.0.0.1:2379 --data-dir="/var/lib/etcd-from-backup" --initial-cluster="controlplane=https://127.0.0.1:2380" --name=controlplane --initial-advertise-peer-urls=https://127.0.0.1:2380 --initial-cluster-token="etcd-cluster-controlplane-1" /opt/snapshot-pre-boot.db
+
+Steps:
+1. run restore command and add new data directory with new uniquc cluster token
+2. Change static etcd pod menifest file and chage data-dir and add unique cluster token
+3. Change etct volume for newly configure data directory at step 2
+
+The staic pod will be restarted and if all goes well 
+```
+
 # Deployment rollout
 <pre><code>
 kubectl rollout history deploy fastpass-service -n industry-4-0 ⇐ fastpass-service name of deployment

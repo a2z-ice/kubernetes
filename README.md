@@ -15,6 +15,10 @@ please be careful only one space before "/opt/snapshot-pre-boot.db"
 
 ETCDCTL_API=3 etcdctl snapshot restore --cacert=--cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=https://127.0.0.1:2379 --data-dir="/var/lib/etcd-from-backup" --initial-cluster="controlplane=https://127.0.0.1:2380" --name=controlplane --initial-advertise-peer-urls=https://127.0.0.1:2380 --initial-cluster-token="etcd-cluster-controlplane-1" /opt/snapshot-pre-boot.db
 
+Open file from /etc/kubernetes/manifest/etcd.yaml for static pod configuration
+
+change the value of --data-dir to "/var/lib/etcd-from-backu" add "--initial-cluster-token=etcd-cluster-controlplane-1" after "--data-dir" go to mount and replace "/var/lib/etcd" to "/var/lib/etcd-from"-backup and also in hostlocation option
+
 Steps:
 1. run restore command and add new data directory with new uniquc cluster token
 2. Change static etcd pod menifest file and chage data-dir and add unique cluster token

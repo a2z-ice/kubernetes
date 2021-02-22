@@ -27,5 +27,6 @@ subjects:
 - kind: ServiceAccount
   name: k8s-dashboard-viewer
   namespace: kubernetes-dashboard
-# Follow following error
+
+# Follow following example
 # https://medium.com/faun/kubernetes-rbac-use-one-role-in-multiple-namespaces-d1d08bb08286

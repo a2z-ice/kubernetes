@@ -1,3 +1,7 @@
+# To show available api resources in kubernetes with theor shortcut
+```
+kubectl api-resources
+```
 # ETCD backup and Restore
 
 ```

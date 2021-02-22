@@ -37,3 +37,25 @@ users:
   user:
     token: TOKEN
 ```    
+
+# Example:
+```
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: CERTIFICATE_AUTHORITY_DATA
+    server: https://SERVER-IP-OR-HOSTNAME:6443
+  name: kanon-kubernetes
+contexts:
+- context:
+    cluster: kanon-kubernetes
+    user:  k8s-dashboard-viewer
+  name: k8s-dashboard-viewer@kanon-kubernetes
+current-context: k8s-dashboard-viewer@kanon-kubernetes
+kind: Config
+preferences: {}
+users:
+- name:  k8s-dashboard-viewer
+  user:
+    token: TOKEN
+```

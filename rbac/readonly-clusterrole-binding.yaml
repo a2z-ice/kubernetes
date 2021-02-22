@@ -1,0 +1,14 @@
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: k8s-dashboard-viewer
+  labels:
+    k8s-app: k8s-dashboard-viewer
+subjects:
+  - kind: ServiceAccount
+    name: k8s-dashboard-viewer
+    namespace: kubernetes-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: dashboard-viewonly

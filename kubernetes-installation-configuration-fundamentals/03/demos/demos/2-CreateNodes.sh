@@ -43,9 +43,18 @@ kubeadm token create
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
 
 #Using the master (API Server) IP address or name, the token and the cert has, let's join this Node to our cluster.
+
+sudo kubeadm join 192.168.0.140:6443 \
+    --token NAME_OF_TOKEN_FROM_TOKEN_LIST \
+    --discovery-token-ca-cert-hash sha256:VALIE_FROM_ABOVE_COMMAND_x509
+
+
 sudo kubeadm join 192.168.0.140:6443 \
     --token o775us.cqjgtnk2ibh90361 \
     --discovery-token-ca-cert-hash sha256:14ebe3f101e6065c8d4e9f70c75801c4f2236c0b25e753352b4f01ddf2b69987
+    
+    
+    
 
 #Back on master, this will say NotReady until the networking pod is created on the new node. Has to schedule the pod, then pull the container.
 kubectl get nodes 

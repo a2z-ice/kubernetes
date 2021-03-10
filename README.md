@@ -1,7 +1,9 @@
 # kubernetes maintainance 
 ```
 kubectl taint nodes k8-slave-1bk delete-node=app:NoSchedule
-kubectl uncordon node03.kubernetes.com
+
+# uncordon only make node unschedulable on the pod which is cordon
+kubectl cordon node03.kubernetes.com
 
 # drain will cordon node03 first and then evict all pod from node03 to available node
 kubectl drain node03.kubernetes.com --ignore-daemonsets

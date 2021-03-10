@@ -1,3 +1,11 @@
+# kubernetes maintainance 
+```
+kubectl taint nodes k8-slave-1bk delete-node=app:NoSchedule
+kubectl uncordon node03.kubernetes.com
+
+# drain will cordon node03 first and then evict all pod from node03 to available node
+kubectl drain node03.kubernetes.com --ignore-daemonsets
+```
 # To show available api resources in kubernetes with theor shortcut
 ```
 kubectl api-resources

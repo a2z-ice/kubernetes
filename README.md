@@ -7,6 +7,9 @@ kubectl cordon node03.kubernetes.com
 
 # drain will cordon node03 first and then evict all pod from node03 to available node
 kubectl drain node03.kubernetes.com --ignore-daemonsets
+
+# if you want to fully delete node from cluster
+kubectl delete node node03.kubernetes.com
 ```
 # To show available api resources in kubernetes with theor shortcut
 ```

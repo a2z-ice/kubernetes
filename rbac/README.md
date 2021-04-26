@@ -1,6 +1,6 @@
 To show available api resources in kubernetes with theor shortcut
 ```
-kubectl api-resources
+kubectl api-resources -o wide
 ```
 Source: https://documentation.commvault.com/11.21/essential/129225_creating_kubeconfig_file_for_kubernetes_authentication.html
 You can use the Kubernetes kubeconfig file for authentication.

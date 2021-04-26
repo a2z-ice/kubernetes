@@ -1,6 +1,21 @@
 To show available api resources in kubernetes with theor shortcut
 ```
 kubectl api-resources -o wide
+
+# to test rback
+# To test service account permission
+```
+kubectl auth can-i get pods --as=system:serviceaccount:<namespace>:<service account name> -n <namespace>
+kubectl auth can-i get pods --as=system:serviceaccount:default:k8s-dev-view-sa -n default
+```
+# For specefic user
+```
+kubectl auth can-i create pods --as <user name> --namespace <namespace name>
+
+# For default namesapce
+kubectl auth can-i create pods --as <user name>
+
+```
 ```
 Source: https://documentation.commvault.com/11.21/essential/129225_creating_kubeconfig_file_for_kubernetes_authentication.html
 You can use the Kubernetes kubeconfig file for authentication.

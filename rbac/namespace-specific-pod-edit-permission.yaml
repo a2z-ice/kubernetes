@@ -4,9 +4,14 @@ metadata:
   name: test-env-pod-editor-cr
 rules:
 - apiGroups:
-  - ''
+  - ""
+  - batch
+  - apps
   resources:
   - pods
+  - cronjobs
+  - jobs
+  - deployments
   verbs:
   - create
   - delete

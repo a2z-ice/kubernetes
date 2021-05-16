@@ -12,7 +12,7 @@ kubectl create sa assad -n default
 
 Create clusterrole and rolebinding for default:assad so that this service account has access to list namespace
 kubectl create clusterrole nslist --verb=list,get,watch --resource=namespaces
-kubectl create clusterrolebinding --clusterrole nslist --serviceaccount=default:assad
+kubectl create clusterrolebinding assadnslist --clusterrole nslist --serviceaccount=default:assad
 
 # to test access
 $ kubectl auth can-i list namespace --as system:serviceaccount:default:assad

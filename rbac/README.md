@@ -1,3 +1,33 @@
+# RBAC service account scenario
+
+```
+Create namespace blue
+kubectl create ns blue
+
+Deploy pod in blue namesapce
+kubectl run nginx --image=nginx -n blue
+
+Create service account assad in default namespace
+kubectl create sa assad -n default
+
+Create clusterrole and rolebinding for default:assad so that this service account has access to list namespace
+kubectl create clusterrole nslist --verb=list,get,watch --resource=namespaces
+kubectl create clusterrolebinding --clusterrole nslist --serviceaccount=default:assad
+
+# to test access
+$ kubectl auth can-i list namespace --as system:serviceaccount:default:assad
+
+Create clusterrole with podlist name so that this allow to access pod list
+kubectl create clusterrole listpod --vert=list,get,watch --resource=pods
+
+Create rolebinding in blue namespace to bind default:assad service account with cluster role podlist so that default:assad service account can list pods in blue namespace
+kubectl -n blue create rolebinding --clusterrole podlist --serviceaccount default:assad
+
+# test pod list in blue namespace
+kubectl auth can-i list po --as system:serviceaccount:default:default-assad
+
+```
+
 To show available api resources in kubernetes with theor shortcut
 ```
 kubectl api-resources -o wide

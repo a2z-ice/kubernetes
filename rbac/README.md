@@ -15,7 +15,7 @@ kubectl create clusterrole nslist --verb=list,get,watch --resource=namespaces
 kubectl create clusterrolebinding assadnslist --clusterrole nslist --serviceaccount=default:assad
 
 # to test access
-$ kubectl auth can-i list namespace --as system:serviceaccount:default:assad
+kubectl auth can-i list namespace --as system:serviceaccount:default:assad
 
 Create clusterrole with podlist name so that this allow to access pod list
 kubectl create clusterrole listpod --vert=list,get,watch --resource=pods

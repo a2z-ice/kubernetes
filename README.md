@@ -20,7 +20,11 @@ kubectl api-resources
 ```
 ------------------Backup etcd------------------------
 ETCDCTL_API=3 etcdctl snapshot save -h
-ETCDCTL_API=3 etcdctl snapshot save --cert=/etc/kubernetes/pki/etcd/server.crt --cacert=/etc/kubernetes/pki/etcd/ca.crt  --key=/etc/kubernetes/pki/etcd/server.key --endpoints=https://127.0.0.1:2379 /opt/snapshot-pre-boot.db
+ETCDCTL_API=3 etcdctl snapshot save \
+--cert=/etc/kubernetes/pki/etcd/server.crt \
+--cacert=/etc/kubernetes/pki/etcd/ca.crt  \
+--key=/etc/kubernetes/pki/etcd/server.key \
+--endpoints=https://127.0.0.1:2379 /opt/snapshot-pre-boot.db
 
 
 
@@ -30,7 +34,16 @@ ETCDCTL_API=3 etcdctl snapshort restore -h
 
 please be careful only one space before "/opt/snapshot-pre-boot.db"
 
-ETCDCTL_API=3 etcdctl snapshot restore --cacert=--cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=https://127.0.0.1:2379 --data-dir="/var/lib/etcd-from-backup" --initial-cluster="controlplane=https://127.0.0.1:2380" --name=controlplane --initial-advertise-peer-urls=https://127.0.0.1:2380 --initial-cluster-token="etcd-cluster-controlplane-1" /opt/snapshot-pre-boot.db
+ETCDCTL_API=3 etcdctl snapshot restore \
+--cacert=--cacert=/etc/kubernetes/pki/etcd/ca.crt \
+--cert=/etc/kubernetes/pki/etcd/server.crt \
+--key=/etc/kubernetes/pki/etcd/server.key \
+--endpoints=https://127.0.0.1:2379 \
+--data-dir="/var/lib/etcd-from-backup" \
+--initial-cluster="controlplane=https://127.0.0.1:2380" \
+--name=controlplane \
+--initial-advertise-peer-urls=https://127.0.0.1:2380 \
+--initial-cluster-token="etcd-cluster-controlplane-1" /opt/snapshot-pre-boot.db
 
 Open file from /etc/kubernetes/manifest/etcd.yaml for static pod configuration
 

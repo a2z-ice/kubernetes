@@ -14,8 +14,8 @@ Create clusterrole and rolebinding for default:assad so that this service accoun
 kubectl create clusterrole nslist --verb=list,get,watch --resource=namespaces
 kubectl create clusterrolebinding assadnslist --clusterrole nslist --serviceaccount=default:assad
 
-# to test access
-kubectl auth can-i list namespace --as system:serviceaccount:default:assad
+# to test access -A for all namespaces
+kubectl auth can-i list namespace --as system:serviceaccount:default:assad -A
 
 Create clusterrole with podlist name so that this allow to access pod list
 kubectl create clusterrole podviewer --verb=list,get,watch --resource=pods
@@ -24,7 +24,7 @@ Create rolebinding in blue namespace to bind default:assad service account with 
 kubectl -n blue create rolebinding assad --clusterrole podviewer --serviceaccount default:assad
 
 # test pod list in blue namespace
-kubectl auth can-i list po -n blue --as system:serviceaccount:default:assad
+kubectl auth can-i list po --as system:serviceaccount:default:assad -n blue
 
 ```
 

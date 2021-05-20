@@ -17,6 +17,9 @@ spec:
     ports:
     - protocol: TCP
       port: 80
+# to test use following url instauction
+https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/
+
 # the following is for allow to access coreDNS      
   - ports:
     - port: 53

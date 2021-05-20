@@ -18,16 +18,16 @@ spec:
     ports:
     - protocol: TCP
       port: 80
-# to test use following url instauction
-https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/
-```
+
 # the following is for allow to access coreDNS      
   - ports:
     - port: 53
       protocol: UDP
     - port: 53
       protocol: TCP  
-
+# to test use following url instauction
+https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/
+```
 # kubernetes maintainance 
 ```
 kubectl taint nodes k8-slave-1bk delete-node=app:NoSchedule

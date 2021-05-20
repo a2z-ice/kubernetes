@@ -1,3 +1,29 @@
+# Kubernetes network policy egress the pod only allow to nginx outgoing request 
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-all-egress-from-access-true
+spec:
+  podSelector:
+    matchLabels:
+      access: "true"
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: "nginx"
+    ports:
+    - protocol: TCP
+      port: 80
+# the following is for allow to access coreDNS      
+  - ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP  
+
 # kubernetes maintainance 
 ```
 kubectl taint nodes k8-slave-1bk delete-node=app:NoSchedule

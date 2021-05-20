@@ -1,4 +1,5 @@
 # Kubernetes network policy egress the pod only allow to nginx outgoing request 
+```
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -19,7 +20,7 @@ spec:
       port: 80
 # to test use following url instauction
 https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/
-
+```
 # the following is for allow to access coreDNS      
   - ports:
     - port: 53

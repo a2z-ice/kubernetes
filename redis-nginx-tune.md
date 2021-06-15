@@ -21,7 +21,7 @@ redis-benchmark -t set,get -d 1000000 -n 1000 -q
 # Nginx
 ```
 #####NGINX-WORKER-LOAD-CHEK#####
-
+# From linux terminal
 ulimit -Hn
 ulimit -Sn
 
@@ -34,6 +34,7 @@ fs.file-max = 70000 (add this value)
 
 sysctl -p
 
+# from nginx configuration file
 vi /etc/nginx/nginx.conf   ( add below values)
 
 events {

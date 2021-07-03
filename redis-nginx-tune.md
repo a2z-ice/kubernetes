@@ -7,11 +7,11 @@ requirepass SuperSecretSecureStrongPass
 dir /data/
 loglevel debug
 maxmemory 4294967296
-```
+
 save 3600 1
 save 300 100
 save 60 10000
-
+```
 # bench marking in redis-cli
 ```
 redis-benchmark -t set -c 100 -n 1000000

@@ -17,9 +17,9 @@ openssl x509 -req -in superuserad.csr -CA ca.crt -CAkey ca.key -CAcreateserial -
  export SERVER_IP=IP-ADDRESS-OF-MASTER-CLUSTER
  
  kubectl config set-cluster kubeadm \
- --certificate-authority /etc/kubernetes/pki/ca.crt \
+ --certificate-authority=/etc/kubernetes/pki/ca.crt \
  --embed-certs=true \
- --server=https://$(SERVER_IP):6443 \
+ --server=https://${SERVER_IP}:6443 \
  --kubeconfig=superuserad.kubeconfig
  
  

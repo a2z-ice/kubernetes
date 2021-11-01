@@ -7,6 +7,6 @@ openssl req -new -key superuserad.key -subj "/CN=superuserad/O=system:masters" -
 openssl x509 -req -in superuserad.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out superuserad.crt -days 1000
 
 # Verification
-kubectl get secret --server=https://127.0.0.1:6443 --client-certificate /root/cartificates/superuserad.crt
+kubectl get secret --server=https://127.0.0.1:/6443 --client-certificate superuserad.crt --certificate-authority /etc/kubernetes/pki/ca.crt --client-key superuserad.key
 
 ```

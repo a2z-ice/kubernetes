@@ -1,4 +1,6 @@
 ```
+# certificate information found from  ./etc/kubernetes/manifests/kube-apiserver.yaml
+
 openssl genrsa -out superuserad.key 2048
 
 openssl req -new -key superuserad.key -subj "/CN=superuserad/O=system:masters" -out superuserad.csr

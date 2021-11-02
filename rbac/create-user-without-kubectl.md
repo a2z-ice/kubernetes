@@ -37,4 +37,7 @@ openssl x509 -req -in superuserad.csr -CA ca.crt -CAkey ca.key -CAcreateserial -
  --user=superuserad \
  --kubeconfig=superuserad.kubeconfig
  
+ # Use context
+ kubectl config use-context default --kubeconfig=superuserad.kubeconfig
+ 
 ```

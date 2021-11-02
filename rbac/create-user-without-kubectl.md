@@ -32,6 +32,8 @@ openssl x509 -req -in superuserad.csr -CA ca.crt -CAkey ca.key -CAcreateserial -
  --embed-certs=true \
  --kubeconfig=superuserad.kubeconfig
  
+ kubectl get po --all-namespaces -o wide --kubeconfig=superuserad.kubeconfig
+ 
  # Set context 
 
  kubectl config set-context default \

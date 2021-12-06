@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastpass-service
+  labels: 
+    app: fastpass-service
+spec:
+  selector:
+    matchLabels:
+      app: fastpass-service  
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubernetes.io/change-cause: "image version java-mem"
+      labels:
+        app: fastpass-service
+    spec:
+      containers:
+      - name: fastpass-service
+        image: assaduzzaman/eureka-fastpass-service:sticky
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"   
+#--------------------------------          
+      restartPolicy: Always  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastpass-service
+spec:
+  selector:
+    app: fastpass-service
+
+  ports:
+    - name: fss-cport
+      port: 8086
+      targetPort: 8086
+      nodePort: 30080
+  type: NodePort

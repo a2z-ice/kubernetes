@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-default-configmap
+  namespace: default
+data:
+  default.conf: |
+    server {
+      listen       80;
+      listen  [::]:80;
+      server_name  localhost;
+
+      location / {
+          root   /usr/share/nginx/html;
+          index  index.html index.htm index.json;
+      }
+      error_page   500 502 503 504  /50x.html;
+      location = /50x.html {
+          root   /usr/share/nginx/html;
+      }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-index-json-comfigmap
+  namespace: default
+data:
+  index.json: |
+    {
+      "status" : "ok"
+    }    
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: default
+  name: nginxotp
+  labels:
+    run: nginxotp 
+spec:
+  containers:
+  - name: nginxotp
+    image: nginx
+    volumeMounts:
+    - name: nginx-default-config-volume
+      mountPath: /etc/nginx/conf.d
+    - name: nginx-index-json-config-volume
+      mountPath: /usr/share/nginx/html  
+  volumes: 
+    - name: nginx-default-config-volume
+      configMap:
+        name: nginx-default-configmap
+    - name: nginx-index-json-config-volume
+      configMap:
+        name: nginx-index-json-comfigmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: nginxotp
+  name: nginxotp
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    nodePort: 30080
+  selector:
+    run: nginxotp
+  type: NodePort           

@@ -1,3 +1,7 @@
+```
+k3d cluster create mycluster
+```
+
 http://localhost:8086/fastpass?fastpassid=100
 
 # Pring all nodeport's ports

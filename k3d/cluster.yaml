@@ -1,4 +1,5 @@
 # https://k3d.io/v5.0.0/usage/exposing_services/#2-via-nodeport
+# or https://k3d.io/v5.2.2/usage/exposing_services/
 kind: Simple
 apiVersion: k3d.io/v1alpha2
 name: my-cluster

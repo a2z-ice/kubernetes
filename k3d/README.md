@@ -1,5 +1,5 @@
 ```
-k3d cluster create mycluster
+k3d cluster create --config config-file.yaml
 ```
 
 http://localhost:8086/fastpass?fastpassid=100

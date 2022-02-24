@@ -1,0 +1,119 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: matomo-pv-nfs
+  labels:
+    type: matomo-pv-nfs
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: nfs-server-address
+    path: "/root/mutated_khotian/K8NFS2/matomo/prod-analytics"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name:  matomo-pvc-nfs
+  namespace: analytics
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matomo
+  namespace: analytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matomo
+  template:
+    metadata:
+      annotations:
+        kubernetes.io/change-cause: matomo-1
+      labels:
+        app: matomo
+    spec:
+      imagePullSecrets:
+      - name: docker-hub.land.gov.bd     
+      volumes:
+       - name: wordpress-matomo-location
+         persistentVolumeClaim: 
+           claimName: matomo-pvc-nfs
+      containers:
+      - name: download-matomo
+        image: wordpress:php7.3-apache
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "1"
+          limits:
+            memory: "8Gi"
+            cpu: "2"        
+        command: ['sh', '-c']
+        args:
+          - |
+              if [ -d "/var/www/html/matomo" ] 
+              then
+                echo "matomo folder already downloaded and adding permission to matomo folder."
+                chown -R www-data:www-data /var/www/html/matomo
+                echo "starting wordpress server..."
+                docker-entrypoint.sh apache2-foreground
+              else
+                echo "matomo not found ownloading matomo..."
+                apt-get update -y && apt-get install wget zip -y
+                cd /var/www/html/
+                wget https://builds.matomo.org/matomo.zip
+                unzip matomo.zip && rm -f matomo.zip
+                echo "adding permission to matomo folder."
+                chown -R www-data:www-data /var/www/html/matomo
+                echo "starting wordpress server..."
+                docker-entrypoint.sh apache2-foreground
+              fi  
+        volumeMounts:  
+        - name: wordpress-matomo-location
+          mountPath: /var/www/html/     
+        ports:
+        - containerPort: 80
+          name: http-port
+          protocol: TCP
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: group
+                    operator: In
+                    values:
+                      - msgq
+      tolerations:
+        - key: group
+          operator: Equal
+          value: msgq
+          effect: NoSchedule
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: matomo-svc
+  namespace: analytics
+spec:
+  ports:
+    - port: 80
+      name: http-port
+      nodePort: 30410
+  selector:
+    app: matomo
+  type: NodePort
+

@@ -44,9 +44,7 @@ spec:
         kubernetes.io/change-cause: matomo-1
       labels:
         app: matomo
-    spec:
-      imagePullSecrets:
-      - name: docker-hub.land.gov.bd     
+    spec: 
       volumes:
        - name: wordpress-matomo-location
          persistentVolumeClaim: 

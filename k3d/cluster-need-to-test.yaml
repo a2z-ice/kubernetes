@@ -1,0 +1,16 @@
+# https://k3d.io/v5.0.0/usage/exposing_services/#2-via-nodeport
+# or https://k3d.io/v5.2.2/usage/exposing_services/
+kind: Simple
+apiVersion: k3d.io/v1alpha4
+name: my-cluster
+# image: rancher/k3s:v1.20.4-k3s1
+servers: 1
+agents: 1
+ports:
+- port: 8082:30080
+  nodeFilters:
+    - agent:0
+options:
+  k3s:
+    extraArgs:
+     - --no-deploy=traefik

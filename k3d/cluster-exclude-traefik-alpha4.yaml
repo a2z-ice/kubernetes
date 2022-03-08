@@ -4,7 +4,7 @@ metadata:
  name: insightdb-cluster
 agents: 0
 kubeAPI: 
-  hostPort: "6550" 
+  hostPort: "6550" # this will change kubeapi server's port on docker label if not mention will be default to 6443
 image: rancher/k3s:v1.22.6-k3s1 
 ports:
   - port: 8081:80

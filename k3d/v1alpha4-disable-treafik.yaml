@@ -1,0 +1,19 @@
+apiVersion: k3d.io/v1alpha4
+kind: Simple
+metadata:
+ name: insightdb-cluster
+agents: 0
+kubeAPI: 
+  hostPort: "6550" 
+# image: rancher/k3s:v1.22.6-k3s1 
+image: rancher/k3s:v1.23.4-k3s1
+ports:
+  - port: 8081:80
+    nodeFilters:
+      - loadbalancer
+options:
+  k3s:
+    extraArgs:
+    - arg: --no-deploy=traefik
+      nodeFilters:
+      - server:*      

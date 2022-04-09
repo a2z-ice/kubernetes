@@ -1,3 +1,10 @@
+# expose service using loadbalancer
+```
+k3d cluster create --config v1alpha4-disable-treafik.yaml
+# Create a service with loadbalancer on 8081 port and then access
+http://localhost:8081/
+```
+
 ```
 k3d cluster create --config config-file.yaml
 

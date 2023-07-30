@@ -1,0 +1,26 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: client-feedback
+servers: 1
+agents: 0
+kubeAPI:
+  hostPort: "6443"
+image: rancher/k3s:v1.25.7-k3s1
+volumes: # repeatable flags are represented as YAML lists
+  - volume: /app/data:/opt/app/data #local-hostpath:nodepath
+    nodeFilters:
+      - server:0
+ports:
+  - port: 8080:80
+    nodeFilters:
+      - loadbalancer
+  - port: 30500-31000:30500-31000
+    nodeFilters:
+      - server:*
+options:
+  k3s:
+    extraArgs:
+    - arg: --disable=traefik
+      nodeFilters:
+      - server:*

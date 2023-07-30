@@ -1,0 +1,129 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: task-pv-volume-key
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/opt/app/data/keycloak/themes" #nodepath
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: task-pv-claim-key
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+spec:
+  selector:
+    matchLabels:
+      app: keycloak
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubernetes.io/change-cause: quay.io/keycloak/keycloak:20.0.0
+      labels:
+        app: keycloak
+    spec:
+      volumes:
+        - name: task-pv-volume-key
+          persistentVolumeClaim:
+            claimName: task-pv-claim-key
+      containers:
+      - name: keycloak
+        image: quay.io/keycloak/keycloak:20.0.0
+        args: ["start"]
+        imagePullPolicy: IfNotPresent    
+        volumeMounts:
+          - mountPath: "/opt/keycloak/themes" #containerpath
+            name: task-pv-volume-key
+        env:
+        - name: KEYCLOAK_ADMIN 
+          value: 'admin'
+        - name: KEYCLOAK_ADMIN_PASSWORD 
+          value: '12345'
+        - name: PROXY_ADDRESS_FORWARDING 
+          value: 'true'
+        - name: KC_HOSTNAME
+          value: 'replace-with-your-hostname'
+        - name: KC_HTTP_HOST 
+          value: '0.0.0.0'
+        - name: KC_PROXY
+          value: 'edge'
+        - name: KC_HOSTNAME_STRICT 
+          value: 'false'
+        - name: KC_DB
+          value: 'mysql'
+        - name: KC_DB_URL 
+          value: 'jdbc:mysql://mysql:3306/keycloak'
+        - name: KC_DB_USERNAME 
+          value: 'root'
+        - name: KC_DB_PASSWORD 
+          value: '12345'
+        ports:
+          - name: idp-cport
+            containerPort: 8080
+      restartPolicy: Always
+#====================Keycloak install Withot Hostname ==========================
+      containers:
+      - name: keycloak
+        image: quay.io/keycloak/keycloak:20.0.0
+        args: ["start-dev"]
+        imagePullPolicy: IfNotPresent    
+        volumeMounts:
+          - mountPath: "/opt/keycloak/themes" #containerpath
+            name: task-pv-volume-key
+        env:
+        - name: KEYCLOAK_ADMIN 
+          value: 'admin'
+        - name: KEYCLOAK_ADMIN_PASSWORD 
+          value: '12345'
+        - name: PROXY_ADDRESS_FORWARDING
+          value: 'true'
+        - name: KC_HTTP_HOST 
+          value: '0.0.0.0'
+        - name: KC_HOSTNAME_STRICT 
+          value: 'false'
+        - name: KC_DB
+          value: 'mysql'
+        - name: KC_DB_URL 
+          value: 'jdbc:mysql://mysql:3306/keycloak'
+        - name: KC_DB_USERNAME 
+          value: 'root'
+        - name: KC_DB_PASSWORD 
+          value: '12345'
+        ports:
+          - name: idp-cport
+            containerPort: 8080
+      restartPolicy: Always
+#=================================================
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+spec:
+  selector:
+    app: keycloak
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      nodePort: 30502
+  type: NodePort

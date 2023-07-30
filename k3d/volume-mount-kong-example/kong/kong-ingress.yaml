@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    konghq.com/protocols: "http,https"   # Enable both HTTP and HTTPS
+    konghq.com/strip-path: "false"
+    kubernetes.io/ingress.class: kong
+  name: ingress-for-client
+spec:
+  rules:
+  - host: hostname   # Replace "your-hostname.com" with your desired hostname
+    http:
+      paths:
+      - backend:
+          service:
+            name: feedback-api  # your-backend-api
+            port:
+              number: 8082
+        path: /api
+        pathType: Prefix

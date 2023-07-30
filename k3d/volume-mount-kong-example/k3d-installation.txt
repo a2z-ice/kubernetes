@@ -1,0 +1,81 @@
+Install Prequisite:
+===================
+yum install yum-utils device-mapper-persistent-data lvm2 curl wget git vim unzip
+
+Install Docker:
+===============
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install docker-ce
+systemctl start docker
+systemctl enable docker
+docker --version
+usermod -a -G docker $USER
+
+
+If you want Changing the Image Installation Directory othewise skip it:
+=======================================================================
+
+$ docker info -f '{{ .DockerRootDir }}'
+	/var/lib/docker
+Using the Daemon Configuration File:
+$ mkdir -p /app/docker
+$ sudo vi /etc/docker/daemon.json
+
+$ sudo cat /etc/docker/daemon.json
+{ 
+   "data-root": "/app/docker"
+}
+
+$ sudo systemctl restart docker
+$ docker info -f '{{ .DockerRootDir}}'
+/app/docker
+
+Install Kubectl:
+================
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" &&
+install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl &&
+echo "export PATH=$PATH:/usr/local/bin" >> ~/.bashrc &&
+source ~/.bashrc
+
+Install K3d:
+============
+curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+
+
+K3d Cluster Create:
+====================
+cat <<EOF > "$TEMP_DIR/config.yaml"
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: client-feedback
+servers: 1
+agents: 0
+kubeAPI:
+  hostPort: "6443"
+image: rancher/k3s:v1.25.7-k3s1
+volumes: # repeatable flags are represented as YAML lists
+  - volume: /app/data:/opt/app/data #local_hostpath:nodepath
+    nodeFilters:
+      - server:0
+ports:
+  - port: 8080:80
+    nodeFilters:
+      - loadbalancer
+  - port: 30500-31000:30500-31000
+    nodeFilters:
+      - server:*
+options:
+  k3s:
+    extraArgs:
+    - arg: --disable=traefik
+      nodeFilters:
+      - server:*
+
+EOF
+
+$ k3d cluster create --config "$TEMP_DIR/config.yaml"
+
+$ k3d cluster list
+$ kubectl cluster-info
+
